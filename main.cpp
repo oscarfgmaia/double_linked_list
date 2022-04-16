@@ -1,98 +1,10 @@
+#include "list.hpp"
 #include <iostream>
 
-// minino buliçoso
-class Node {
-public:
-  int data;
-  Node *next = nullptr; // valores default
-  Node *previous = nullptr;
-};
-
-class List {
-
-private:
-  void createFirstNode(int d) {
-    Node *node = new Node{d}; // quando cria aqui os next e prev ja sao nullptr
-                              // por conta dos defaults
-    head = node;
-    tail = node;
-    ++size;
-  };
-
-public:
-  size_t size = 0;
-  Node *head = nullptr;
-  Node *tail = nullptr;
-  // to lgd, vou inciializar sasporra sempre com valor default..
-
-  // xo xo xo, para de buli or
-  ~List() {
-    auto *node = head;
-    while (node) { // while node is not nullptr
-      auto *temp = node;
-      node = node->next;
-      delete temp;
-    }
-  }
-  // boa, podia ser isso tb kkk
-  void PushBack(int d) {
-    if (!tail) {
-      createFirstNode(d);
-      return;
-    }
-    Node *node = new Node();
-    node->previous = tail;
-    node->next = nullptr;
-    node->data = d;
-    ++size; // ++size ao invés de size++ (sao diferentes)
-    tail->next = node;
-    tail = node;
-  };
-
-  void PushFront(int d) {
-    if (!head) {
-      createFirstNode(d);
-    } else {
-      Node *node = new Node();
-      node->previous = nullptr;
-      node->next = head;
-      node->data = d;
-      ++size;
-      head->previous = node;
-      head = node;
-    }
-  };
-
-  void printListForward() {
-    Node *node = head;
-    while (node) {
-      std::cout << node->data << std::endl;
-      node = node->next;
-    }
-  };
-
-  void printListBackward() {
-    Node *node = tail;
-    while (node != nullptr) {
-      std::cout << node->data << std::endl;
-      node = node->previous;
-    }
-  };
-
-  void ChangeAllPositions() {
-    Node *traveler = head;
-    while (traveler != nullptr) {
-      traveler->data += 1;
-      traveler = traveler->next;
-    }
-  }
-
-  void PopBack() {
-    tail = tail->previous;
-    tail->next = nullptr;
-  }
-  void PopFront() {
-    head = head->next;
-    head->previous = nullptr;
-  }
-};
+int main() {
+  List list;
+  list.PushFront(5);
+  list.PushFront(7);
+  list.PrintListForward();
+  return 0;
+}
